@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::group(['prefix' => 'api'], function(){
+Route::get('/',[ApiController::class,'index'])->name('api.index');
+Route::post('/distance',[ApiController::class,'distance'])->name('api.distance');
+Route::get('/meteo',[ApiController::class,'meteo'])->name('api.meteo');
+});
 
 Route::get('/mail',[MailController::class,'sendEmail']);
 
